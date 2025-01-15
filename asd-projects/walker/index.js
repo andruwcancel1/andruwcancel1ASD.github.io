@@ -194,10 +194,13 @@ function runProgram(){
 		
 }
 
+
+
 function handleCollision(){
 
   if(doCollide(walker, walker2)){
     console.log("you have pressed upon my flesh, YOU WILL PAY!!")
+    alert("you have pressed upon my flesh, YOU WILL PAY!!")
     changeColor();
   }
 
