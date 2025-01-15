@@ -1,5 +1,3 @@
-// jshint esnext: true
-/* global $, sessionStorage */
 
 $(document).ready(runProgram); // wait for the HTML / CSS elements of the page to fully load, then execute runProgram()
   
@@ -34,6 +32,8 @@ function runProgram(){
     yPos: 0,
     speedX: 0,
     speedY: 0,
+    width: WALKER_WIDTH,
+    height: WALKER_HEIGHT,
   }
   
   var walker2 = {
@@ -41,6 +41,8 @@ function runProgram(){
     yPos: BOARD_HEIGHT - WALKER_HEIGHT,
     speedX: 0,
     speedY: 0,
+    width: WALKER_WIDTH,
+    height: WALKER_HEIGHT
   }
 
   // one-time setup
@@ -62,6 +64,7 @@ function runProgram(){
     repositionGameItem();
     redrawGameItem();
     wallCollision();
+    handleCollision();
   }
   
   /* 
@@ -152,6 +155,54 @@ function runProgram(){
     }
   }
   
+  function changeColor(){
+    //store the current color of each walker
+    var walkerColor = $("#walker").css("background-color");
+    var walker2Color = $("#walker2").css("background-color");
+    //switch the colors
+    $("#walker").css("background-color", walker2Color);
+    $("#walker2").css("background-color", walkerColor);
+  }
+
+  function doCollide(obj, obj2) {
+    // TODO: calculate and store the remaining
+    // sides of the obj
+    obj.leftX = obj.xPos;
+    obj.topY = obj.yPos;
+    obj.rightX = obj.xPos + obj.width;
+    obj.bottomY = obj.yPos + obj.height;
+    
+    // TODO: Do the same for obj2
+       
+    obj2.leftX = obj2.xPos;
+    obj2.topY = obj2.yPos;
+    obj2.rightX = obj2.xPos + obj2.width;
+    obj2.bottomY = obj2.yPos + obj2.height;
+
+    // TODO: Return true if they are overlapping, false otherwise
+	if(
+    
+      obj2.rightX > obj.leftX && 
+      obj2.leftX < obj.rightX &&
+      obj2.bottomY > obj.topY &&
+      obj2.topY < obj.bottomY 
+    ){
+      return true
+    } else {
+      return false
+    }
+		
+}
+
+function handleCollision(){
+
+  if(doCollide(walker, walker2)){
+    console.log("you have pressed upon my flesh, YOU WILL PAY!!")
+    changeColor();
+  }
+
+}
+
 
   
   function endGame() {
