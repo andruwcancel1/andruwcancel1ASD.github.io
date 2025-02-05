@@ -64,7 +64,7 @@ function runProgram(){
     repositionGameItem();
     redrawGameItem();
     wallCollision();
-    handleCollision();
+    handleCollision(true);
   }
   
   /* 
@@ -196,12 +196,15 @@ function runProgram(){
 
 
 
-function handleCollision(){
+function handleCollision(Boolean){
 
-  if(doCollide(walker, walker2)){
+var isTrue = Boolean
+
+  if(doCollide(walker, walker2)&& isTrue === true){
     console.log("you have pressed upon my flesh, YOU WILL PAY!!")
     alert("you have pressed upon my flesh, YOU WILL PAY!!")
     changeColor();
+
   }
 
 }
